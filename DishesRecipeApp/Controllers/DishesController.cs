@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DishRecipeApp.Models;
+using DishesRecipeApp.ViewModels;
 
 namespace DishesRecipeApp.Controllers
 {
@@ -22,24 +23,89 @@ namespace DishesRecipeApp.Controllers
 
         // GET: api/Dishes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Dish>>> GetDishes()
+        //public async Task<ActionResult<IEnumerable<Dish>>> GetDishes()
+        //{
+        //    return await _context.Dishes.ToListAsync();
+        //}
+
+        public async Task<ActionResult<IEnumerable<DishWithReviewsDto>>> GetDishes(
+            [FromQuery] DateTime? from = null,
+            [FromQuery] DateTime? to = null)
         {
-            return await _context.Dishes.ToListAsync();
+            IQueryable<Dish> result = _context.Dishes;
+            if (from != null)
+            {
+                result = result.Where(d => from <= d.DateAdded);
+            }
+            if (to != null)
+            {
+                result = result.Where(d => d.DateAdded <= to);
+            }
+
+            var resultList = await result
+                .Include(d => d.Reviews)
+                .Select(d => DishWithReviewsDto.FromDish(d))
+                .ToListAsync();
+            return resultList;
         }
 
         // GET: api/Dishes/5
         [HttpGet("{id}")]
+        //public async Task<ActionResult<Dish>> GetDish(long id)
+        //{
+        //    var dish = await _context.Dishes.FindAsync(id);
+
+        //    if (dish == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return dish;
+        //}
+
+
         public async Task<ActionResult<Dish>> GetDish(long id)
         {
-            var dish = await _context.Dishes.FindAsync(id);
+            
+
+            var dish = await _context.Dishes
+                .Include(d => d.Reviews)
+                .Include (d => d.Ingredients)
+                .Select(d => new DishDtoDetail()
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                    Description = d.Description,
+                    Ingredients = d.Ingredients.Select (i => new IngredientDtoDetail() 
+                    { 
+                        Id = i.Id,
+                        Name = i.Name,
+                        IngredientType = i.IngredientType,
+                        Origin = i.Origin
+                    }),
+                    DishCategory = d.DishCategory,
+                    Reviews = d.Reviews.Select(r => new ReviewDtoDetail()
+                    {
+                        Id = r.Id,
+                        Content = r.Content
+                    
+                    })
+                }).SingleOrDefaultAsync(d => d.Id == id);
+
+            //.Select(e => ExpenseDtoDetail.GetDtoFromExpense(e))
+            //.AsEnumerable()
+            //.FirstOrDefault(e => e.Id == id);
 
             if (dish == null)
             {
                 return NotFound();
             }
 
-            return dish;
+            return Ok(dish);
         }
+
+
+
 
         // PUT: api/Dishes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
