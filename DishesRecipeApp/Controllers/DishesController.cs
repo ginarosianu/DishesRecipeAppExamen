@@ -22,12 +22,18 @@ namespace DishesRecipeApp.Controllers
         }
 
         // GET: api/Dishes
+        /// <summary>
+        /// Gets a list of all Dish objects.
+        /// </summary>
+        /// <param name="from">Filter for dishes added from this date time (inclusive). Leave empty for now lower limit..</param>
+        /// <param name="to">Filter for dishes added up to this date time (inclusive). Leave empty for now upper limit.</param>
+        /// <returns>A list of Dish objects.</returns>
         [HttpGet]
         //public async Task<ActionResult<IEnumerable<Dish>>> GetDishes()
         //{
         //    return await _context.Dishes.ToListAsync();
         //}
-
+       
         public async Task<ActionResult<IEnumerable<DishWithReviewsDto>>> GetDishes(
             [FromQuery] DateTime? from = null,
             [FromQuery] DateTime? to = null)
@@ -49,6 +55,15 @@ namespace DishesRecipeApp.Controllers
             return resultList;
         }
 
+        /// <summary>
+        /// Gets a specific Dish object.
+        /// </summary>
+        /// <param name="id">The id of the dish you want to return.</param>
+        /// <returns>The dish with the id you gave.</returns>
+        ///<response code = "201">Returns the dish.</response>
+        ///<response code = "404">Not found, if the param id does not exist.</response>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         // GET: api/Dishes/5
         [HttpGet("{id}")]
         //public async Task<ActionResult<Dish>> GetDish(long id)
@@ -92,11 +107,7 @@ namespace DishesRecipeApp.Controllers
                     })
                 }).SingleOrDefaultAsync(d => d.Id == id);
 
-            //.Select(e => ExpenseDtoDetail.GetDtoFromExpense(e))
-            //.AsEnumerable()
-            //.FirstOrDefault(e => e.Id == id);
-
-            if (dish == null)
+              if (dish == null)
             {
                 return NotFound();
             }
@@ -105,8 +116,12 @@ namespace DishesRecipeApp.Controllers
         }
 
 
-
-
+        /// <summary>
+        /// Update a Dish object with a specific id.
+        /// </summary>
+        /// <param name="id">The id of the object you want to update.</param>
+        /// <param name="dish">Enter the new name of the dish you want to update.</param>
+        /// <returns>The updated dish.</returns>
         // PUT: api/Dishes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -139,10 +154,34 @@ namespace DishesRecipeApp.Controllers
             return NoContent();
         }
 
+
+        /// <summary>
+        /// Create a new Dish object.
+        /// </summary>
+        /// <param name="dish">The name of Dish object you want to create.</param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /DishrecipeApp
+        ///     {
+        ///        "id": 1,
+        ///         "name": "name1",
+        ///         "description": "description1",
+        ///         "dishcategory": "dishcategory1",
+        ///        "dateAdded": "dateAdded1",
+        ///         "numberOfReviews": 1
+        ///     }
+        /// </remarks>
+        /// <returns>The created object</returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
+
         // POST: api/Dishes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Dish>> PostDish(Dish dish)
         {
             _context.Dishes.Add(dish);
@@ -151,6 +190,16 @@ namespace DishesRecipeApp.Controllers
             return CreatedAtAction("GetDish", new { id = dish.Id }, dish);
         }
 
+
+        /// <summary>
+        /// Delets a specific object.
+        /// </summary>
+        /// <param name="id">The id of the Dish object you want to delete.</param>
+        /// <returns>The deleted Object</returns>
+        /// <response code = "201">When the object was deleted succesfully</response>
+        /// <response code = "400">When the object was not deleted succesfully</response>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         // DELETE: api/Dishes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Dish>> DeleteDish(long id)
