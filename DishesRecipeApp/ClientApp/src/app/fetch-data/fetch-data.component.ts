@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+declare var require: any
+
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'

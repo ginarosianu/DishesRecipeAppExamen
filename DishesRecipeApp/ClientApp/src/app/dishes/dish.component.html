@@ -1,0 +1,48 @@
+<!--<h1 id="tableLabel">DISHES</h1>
+
+<p>This is our Dishes Recipes Board.</p>
+
+<p *ngIf="!dishes"><em>Loading...</em></p>
+
+
+<table style="width:100%" class='table table-striped' aria-labelledby="tableLabel" *ngIf="dishes">
+  <thead>
+    <tr>
+      <th style="width:10%">Name</th>
+      <th style="width:10%">Description</th>
+      <th style="width:10%">Dish Category</th>
+      <th style="width:10%">No of Reviews</th>
+      <th style="width:30%">Operations</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dish of dishes">
+      <td>{{ dish.name }}</td>
+      <td>{{ dish.description }}</td>
+      <td>{{ dish.dishCategory }}</td>
+      <td>{{ dish.numberOfReviewss }}</td>
+      <td>
+        <button class="btn btn-primary" [routerLink]="['/dish', dish.id]" routerLinkActive="active">Details</button> |
+        <button class="btn btn-warning" [routerLink]="['/dish-add', movie.id]">Edit</button> |
+        <button class="btn btn-danger" (click)=" delete(dish.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<td><a class="btn btn-success" [routerLink]="['/dish-add/0']">Add a dish</a></td>
+
+<input [(ngModel)]="name" />
+
+<p>{{name}}</p>
+
+<button (click)="submit()">Submit!</button>
+
+
+<input type="date" />-->
+
+
+
+
+<router-outlet></router-outlet>

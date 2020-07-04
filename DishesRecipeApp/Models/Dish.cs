@@ -7,10 +7,10 @@ namespace DishRecipeApp.Models
 {
     public enum DishCategory 
     {
-        Appetizer,
-        Soup,
-        MainDish,
-        Desert
+        Appetizer = 0,
+        Soup = 1,
+        MainDish = 2,
+        Desert =3 
     }
 
     public class Dish
