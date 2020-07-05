@@ -34,7 +34,7 @@ namespace DishesRecipeApp.Controllers
         //    return await _context.Dishes.ToListAsync();
         //}
        
-        public async Task<ActionResult<IEnumerable<DishWithReviewsDto>>> GetDishes(
+        public async Task<ActionResult<IEnumerable<DishWithNumberOfReviews>>> GetDishes(
             [FromQuery] DateTime? from = null,
             [FromQuery] DateTime? to = null)
         {
@@ -49,8 +49,16 @@ namespace DishesRecipeApp.Controllers
             }
 
             var resultList = await result
-                .Include(d => d.Reviews)
-                .Select(d => DishWithReviewsDto.FromDish(d))
+               .Select(d => new DishWithNumberOfReviews 
+               { 
+                   Id = d.Id,
+                   Name = d.Name,
+                   Description = d.Description,
+                   DishCategory = d.DishCategory,
+                   DateAdded = d.DateAdded,
+                   NumberOfReviews = d.Reviews.Count,
+                   NumberOfIngredients = d.Ingredients.Count
+               })
                 .ToListAsync();
             return resultList;
         }
@@ -78,8 +86,9 @@ namespace DishesRecipeApp.Controllers
         //    return dish;
         //}
 
-
-        public async Task<ActionResult<Dish>> GetDish(long id)
+        //public async Task<ActionResult<MovieDetails>> GetMovie(long id)
+       
+       public async Task<ActionResult<Dish>> GetDish(long id)
         {
             
 
@@ -113,6 +122,7 @@ namespace DishesRecipeApp.Controllers
             }
 
             return Ok(dish);
+           
         }
 
 
@@ -168,7 +178,7 @@ namespace DishesRecipeApp.Controllers
         ///         "name": "name1",
         ///         "description": "description1",
         ///         "dishcategory": "dishcategory1",
-        ///        "dateAdded": "dateAdded1",
+        ///         "dateAdded": "dateAdded1",
         ///         "numberOfReviews": 1
         ///     }
         /// </remarks>

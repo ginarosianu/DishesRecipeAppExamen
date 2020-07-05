@@ -1,24 +1,36 @@
-<h1 id="tableLabel">Weather forecast</h1>
+<h1 id="tableLabel">Dishes Recipes</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>These are our Dishes Recipes.</p>
 
-<p *ngIf="!forecasts"><em>Loading...</em></p>
+<p *ngIf="!dishes"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
+<div><a class="btn btn-success" [routerLink]="['/dish-add/0']">Add</a></div>
+
+<table style="width:100%" class='table table-striped' aria-labelledby="tableLabel" *ngIf="dishes">
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
+      <th style="width:14%">Name</th>
+      <th style="width: 14%">Description</th>
+      <th style="width:14%">Dish Category</th>
+      <th style="width:14%">No of Ingredients</th>
+      <th style="width:14%">No of Reviews</th>
+      <th style="width:30%">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.date }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let dish of dishes">
+      <td>{{ dish.name }}</td>
+      <td>{{ dish.description }}</td>
+      <td>{{ dish.dishCategory }}</td>
+      <td>{{ dish.numberOfIngredients }}</td>
+      <td>{{ dish.numberOfReviews }}</td>
+      <td width="300px">
+        <button class="btn btn-primary" [routerLink]="['/dish', dish.id]" routerLinkActive="active">Details</button> |
+        <button class="btn btn-warning" [routerLink]="['/dish-add', dish.id]">Edit</button> |
+        <button class="btn btn-danger" (click)=" delete(dish.id)">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>
+
+<div><a class="btn btn-success" [routerLink]="['/dish-add/0']">Add</a></div>

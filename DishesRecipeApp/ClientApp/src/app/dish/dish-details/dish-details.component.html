@@ -1,0 +1,59 @@
+<p>dish-details works!</p>
+
+
+<p *ngIf="!dish"><em>Loading ...</em></p>
+
+<a [routerLink]="['/fetch-data']" routerLinkActive="active">Back</a>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="dish">
+  <tbody>
+    <tr>
+      <th>Name</th>
+      <td>{{ dish.name }}</td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td>{{ dish.description }}</td>
+    </tr>
+    <tr>
+      <th>Dish Category</th>
+      <td>{{ dish.dishCategory }}</td>
+    </tr>
+
+    <!--<tr>
+      <th>DateAdded</th>-->
+      <!--<td>{{ movie.dateAdded }}</td>-->
+    <!--</tr>-->
+
+  </tbody>
+</table>
+
+<th>Reviews</th>
+<table style="width:100%" *ngIf="dish">
+  <thead>
+    <tr>
+      <th style="width:30%">Content</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let review of dish.reviews">
+    <td style="width:30%">{{ review.content }}</td>
+  </tr>
+</table>
+
+<th>Ingredients</th>
+<table style="width:100%" *ngIf="dish">
+  <thead>
+    <tr>
+      <th style="width:30%">Name</th>
+      <th style="width:30%">Ingredient Type</th>
+      <th style="width:30%">Origin</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let ingredient of dish.ingredients">
+    <td style="width:30%">{{ ingredient.name }}</td>
+    <td style="width:30%">{{ ingredient.ingredientType }}</td>
+    <td style="width:30%">{{ ingredient.origin }}</td>
+  </tr>
+</table>
+
+<a [routerLink]="['/dish']" routerLinkActive="active">Back</a>
+

@@ -1,0 +1,56 @@
+<p>dish-add works!</p>
+
+<h1 id="tableLabel"> Add new dish </h1>
+
+<!--<div class="container">
+  <div class=" row">
+    <div class=" col-10">
+      <div class=" jumbotron">
+        <form [formGroup]="dishForm" (ngSubmit)="onSubmit(dishForm)">
+
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class=" form-control" formControlName="name" />
+            <span *ngIf="form.get('name').errors?.required">Name  is required</span>
+            <span *ngIf="dishForm.get('name').errors?.serverError">
+              {{ dishForm.get('name').errors?.serverError }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" class=" form-control" formControlName="description" />
+            <span *ngIf="form.get('description').errors?.required">Description is required</span>
+            <span *ngIf="dishForm.get('description').errors?.serverError">
+              {{ dishForm.get('description').errors?.serverError }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>Dish Category</label>
+            <select class=" form-control" formControlName="genre">
+              <option value="appetizer">Appetizer </option>
+              <option value="soup">Soup</option>
+              <option value="maindish">Main Dish </option>
+              <option value="desert">Desert </option>
+
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Date</label>
+            <input type="datetime" class=" form-control" placeholder="2020-06-14" formControlName="dateAdded" />
+            <span *ngIf="form.get('dateAdded').errors?.required">Date is required</span>
+            <span *ngIf="dishForm.get('dateAdded').errors?.serverError">
+              {{ dishForm.get('dateAdded').errors?.serverError }}
+            </span>
+          </div>
+
+          <button class="btn btn-success float-left" type='submit' [disabled]="!dishForm.valid">Save</button>
+          <button class="btn btn-success float-right" (click)="goBack()">Back</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>-->
