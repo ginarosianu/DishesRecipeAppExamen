@@ -1,9 +1,10 @@
-<p>dish-details works!</p>
+<!--<p>dish-details works!</p>-->
 
 
 <p *ngIf="!dish"><em>Loading ...</em></p>
+<button class="btn btn-success float-right" [routerLink]="['/dish']" routerLinkActive="active">Back</button>
 
-<a [routerLink]="['/fetch-data']" routerLinkActive="active">Back</a>
+<h2>Dish details</h2>
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="dish">
   <tbody>
     <tr>
@@ -21,39 +22,59 @@
 
     <!--<tr>
       <th>DateAdded</th>-->
-      <!--<td>{{ movie.dateAdded }}</td>-->
+    <!--<td>{{ movie.dateAdded }}</td>-->
     <!--</tr>-->
 
   </tbody>
 </table>
 
-<th>Reviews</th>
+<!--<th>Reviews</th>
 <table style="width:100%" *ngIf="dish">
   <thead>
     <tr>
       <th style="width:30%">Content</th>
+      <td style="width:30%">{{ review.content }}</td>
     </tr>
   </thead>
   <tr *ngFor="let review of dish.reviews">
     <td style="width:30%">{{ review.content }}</td>
   </tr>
-</table>
+</table>-->
 
-<th>Ingredients</th>
-<table style="width:100%" *ngIf="dish">
-  <thead>
-    <tr>
-      <th style="width:30%">Name</th>
-      <th style="width:30%">Ingredient Type</th>
-      <th style="width:30%">Origin</th>
+
+<div>
+  <h3>Reviews</h3>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="dish">
+    <!--<table style="width:100%" *ngIf="dish">-->
+    <thead>
+      <tr>
+        <th style="width:30%">Content</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let review of dish.reviews">
+      <td style="width:30%">{{ review.content }}</td>
     </tr>
-  </thead>
-  <tr *ngFor="let ingredient of dish.ingredients">
-    <td style="width:30%">{{ ingredient.name }}</td>
-    <td style="width:30%">{{ ingredient.ingredientType }}</td>
-    <td style="width:30%">{{ ingredient.origin }}</td>
-  </tr>
-</table>
+  </table>
+</div>
 
-<a [routerLink]="['/dish']" routerLinkActive="active">Back</a>
+<div>
+  <h3>Ingredients</h3>
 
+  <!--<table style="width:100%" *ngIf="dish">-->
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="dish">
+    <thead>
+      <tr>
+        <th style="width:30%">Name</th>
+        <th style="width:30%">Ingredient Type</th>
+        <th style="width:30%">Origin</th>
+      </tr>
+    </thead>
+    <tr *ngFor="let ingredient of dish.ingredients">
+      <td style="width:30%">{{ ingredient.name }}</td>
+      <td style="width:30%">{{ ingredient.ingredientType }}</td>
+      <td style="width:30%">{{ ingredient.origin }}</td>
+    </tr>
+  </table>
+</div>
+
+<button class="btn btn-success float-right" [routerLink]="['/dish']" routerLinkActive="active">Back</button>

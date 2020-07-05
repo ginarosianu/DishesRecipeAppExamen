@@ -1,7 +1,8 @@
 export class Dish {
   name: string;
   description: string;
-  dishcategory: string;
-  dateadded : string
+  dishCategory: string;
+  dateAdded: string;
+  commentsNumber: number;
+  ingredientsNUmber: number
 }
-

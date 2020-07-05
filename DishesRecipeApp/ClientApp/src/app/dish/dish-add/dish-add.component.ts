@@ -51,8 +51,8 @@ export class DishAddComponent implements OnInit {
             this.dishForm.setValue({
               name: this.dish.name,
               description: this.dish.description,
-              //dishCategory: this.dish.dishCategory,
-              //dateAdded: this.dish.dateAdded,
+              dishCategory: this.dish.dishCategory,
+              dateAdded: this.dish.dateAdded
             });
           }
         });

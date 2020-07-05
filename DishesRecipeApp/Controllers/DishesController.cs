@@ -33,7 +33,7 @@ namespace DishesRecipeApp.Controllers
         //{
         //    return await _context.Dishes.ToListAsync();
         //}
-       
+
         public async Task<ActionResult<IEnumerable<DishWithNumberOfReviews>>> GetDishes(
             [FromQuery] DateTime? from = null,
             [FromQuery] DateTime? to = null)
@@ -49,8 +49,8 @@ namespace DishesRecipeApp.Controllers
             }
 
             var resultList = await result
-               .Select(d => new DishWithNumberOfReviews 
-               { 
+               .Select(d => new DishWithNumberOfReviews
+               {
                    Id = d.Id,
                    Name = d.Name,
                    Description = d.Description,
@@ -87,21 +87,21 @@ namespace DishesRecipeApp.Controllers
         //}
 
         //public async Task<ActionResult<MovieDetails>> GetMovie(long id)
-       
-       public async Task<ActionResult<Dish>> GetDish(long id)
+
+        public async Task<ActionResult<Dish>> GetDish(long id)
         {
-            
+
 
             var dish = await _context.Dishes
                 .Include(d => d.Reviews)
-                .Include (d => d.Ingredients)
+                .Include(d => d.Ingredients)
                 .Select(d => new DishDtoDetail()
                 {
                     Id = d.Id,
                     Name = d.Name,
                     Description = d.Description,
-                    Ingredients = d.Ingredients.Select (i => new IngredientDtoDetail() 
-                    { 
+                    Ingredients = d.Ingredients.Select(i => new IngredientDtoDetail()
+                    {
                         Id = i.Id,
                         Name = i.Name,
                         IngredientType = i.IngredientType,
@@ -112,17 +112,17 @@ namespace DishesRecipeApp.Controllers
                     {
                         Id = r.Id,
                         Content = r.Content
-                    
+
                     })
                 }).SingleOrDefaultAsync(d => d.Id == id);
 
-              if (dish == null)
+            if (dish == null)
             {
                 return NotFound();
             }
 
             return Ok(dish);
-           
+
         }
 
 
