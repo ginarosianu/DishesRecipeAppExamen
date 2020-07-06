@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DishService } from '../shared/dish.service';
 import { Dish } from '../shared/dish.model';
 import { DishDishCategory } from '../shared/enum/dishDishCategory';
@@ -23,7 +23,9 @@ export class DishAddComponent implements OnInit {
     private dishService: DishService,
     private location: Location,
     private fb: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute) { }
+   
 
   ngOnInit() {
     this.addDishForm();
@@ -60,16 +62,14 @@ export class DishAddComponent implements OnInit {
   }
 
   onSubmit({ value, valid }) {
-
-    console.log("wrong place");
-
+     
     if (valid) {
       var id = parseInt(this.route.snapshot.paramMap.get('id'));
 
       if (id === 0) {
         this.dishService.add(value)
           .subscribe(
-            _ => this.location.back(),
+            _ => this.router.navigate(['/dishes']),
             err => {
               const validationErrors = err.error.errors;
 
@@ -88,7 +88,7 @@ export class DishAddComponent implements OnInit {
         value.id = id;
         this.dishService.update(id, value)
           .subscribe(
-            _ => this.location.back(),
+            _ => this.router.navigate(['/dishes']),
             err => {
               const validationErrors = err.error.errors;
 

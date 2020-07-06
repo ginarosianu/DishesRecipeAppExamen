@@ -28,34 +28,48 @@
   </tbody>
 </table>
 
-<!--<th>Reviews</th>
-<table style="width:100%" *ngIf="dish">
-  <thead>
-    <tr>
-      <th style="width:30%">Content</th>
-      <td style="width:30%">{{ review.content }}</td>
-    </tr>
-  </thead>
-  <tr *ngFor="let review of dish.reviews">
-    <td style="width:30%">{{ review.content }}</td>
-  </tr>
-</table>-->
 
 
 <div>
   <h3>Reviews</h3>
   <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="dish">
-    <!--<table style="width:100%" *ngIf="dish">-->
-    <thead>
-      <tr>
-        <th style="width:30%">Content</th>
+    <table style="width:100%" *ngIf="dish">
+      <thead>
+        <tr>
+          <th style="width:30%">Content</th>
+        </tr>
+      </thead>
+      <tr *ngFor="let review of dish.reviews">
+        <td style="width:30%">{{ review.content }}</td>
       </tr>
-    </thead>
-    <tr *ngFor="let review of dish.reviews">
-      <td style="width:30%">{{ review.content }}</td>
-    </tr>
+    </table>
   </table>
 </div>
+
+<!--<th>Reviews</th>
+<td>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="!dish.reviews">
+    <tr *ngFor="let review of dish.reviews">
+      <td>
+        {{ review.content}}
+        < *ngIf="comment.important == true">star_border</>
+      </td>
+      <td>
+        <div [routerLinkActive]="['link-active']">
+          <button class="btn-link" [routerLink]="['../add/' + dish.id + '/review-add/' + review.id]">edit</button>
+          <button class="btn-link" (click)="deleteReview(review.id)">delete</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <div [routerLinkActive]="['link-active']">
+    <a class="nav-link text-dark" [routerLink]="['../add/' + dish.id + '/review-add/0']">add</a>
+  </div>
+</td>-->
+
+
+
+
 
 <div>
   <h3>Ingredients</h3>
